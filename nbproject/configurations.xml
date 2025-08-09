@@ -33,8 +33,8 @@
       </logicalFolder>
       <itemPath>run.h</itemPath>
       <itemPath>log.h</itemPath>
-      <itemPath>rylr.h</itemPath>
       <itemPath>timeout.h</itemPath>
+      <itemPath>lora.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -83,6 +83,8 @@
       <itemPath>Makefile</itemPath>
       <itemPath>BaseBoardCore.mc3</itemPath>
     </logicalFolder>
+    <itemPath>uuid.c</itemPath>
+    <itemPath>uuid.h</itemPath>
   </logicalFolder>
   <sourceRootList>
     <Elem>.</Elem>

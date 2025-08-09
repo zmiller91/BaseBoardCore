@@ -10,6 +10,7 @@
 #include "lora.h"
 #include "timeout.h"
 #include "log.h"
+#include "uuid.h"
 
 void lora_init(void) {
     
@@ -21,6 +22,19 @@ void lora_init(void) {
     EUSART1_TransmitEnable();
     EUSART1_ReceiveEnable();
     timeout_init();
+}
+
+void eusart1_rx_clear(void) {
+    // Clear overrun if present
+    if (RC1STAbits.OERR) {
+        RC1STAbits.CREN = 0;
+        RC1STAbits.CREN = 1;
+    }
+
+    // Flush any unread data
+    while (PIR3bits.RC1IF) {
+        volatile uint8_t dummy = RC1REG;
+    }
 }
 
 bool tx_busy(void) {
@@ -109,9 +123,12 @@ bool lora_enable(void) {
     log_debug("RYLR_EN high");
     
     __delay_ms(2000);
-    uart_write("AT\r\n");
     
+    // Clear the rx queue and submit an AT command and check for OK status
+    eusart1_rx_clear();
+    uart_write("AT\r\n");
     int8_t result = uart_read();
+    
     if (result != RYLR998_OK) {
         log_debug("Failed to enable RYLR");
         return false;
@@ -121,7 +138,7 @@ bool lora_enable(void) {
     return true;
 }
 
-int8_t lora_send(uint8_t address, char serial[], double metrics[], uint8_t size) {
+int8_t lora_send(uint8_t address, double metrics[], uint8_t size) {
     
     char metricResult[60] = {0};
     for(uint8_t idx = 0; idx < size; idx++) {
@@ -137,10 +154,11 @@ int8_t lora_send(uint8_t address, char serial[], double metrics[], uint8_t size)
        
     // Calculate the payload size, since any null values won't be written
     // to the final buffer.
-    int payload_size = snprintf(NULL, 0, "%s%s", serial, metricResult);
+    int payload_size = snprintf(NULL, 0, "%s%s", uuid_get(), metricResult);
     char buffer[60] = {0};
-    sprintf(buffer, "AT+SEND=%i,%i,%s%s\r\n", address, payload_size, serial, metricResult);
-    printf("%s", buffer);
+    sprintf(buffer, "AT+SEND=%i,%i,%s%s\r\n", address, payload_size, uuid_get(), metricResult);
+    
+    log_debug(buffer);
     int8_t response_code = uart_write(buffer);
     if(response_code < 0) {
         return response_code;

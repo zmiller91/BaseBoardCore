@@ -35,7 +35,7 @@
 #define LORA_UNLISTED_FAILURE                        INT8_C(-99)
 
 void lora_init(void);
-int8_t lora_send(uint8_t address, char serial[], double metrics[], uint8_t size);
+int8_t lora_send(uint8_t address, double metrics[], uint8_t size);
 bool lora_enable(void);
 
 
