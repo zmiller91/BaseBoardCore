@@ -39,7 +39,9 @@ void SYSTEM_Initialize(void)
     CLOCK_Initialize();
     PIN_MANAGER_Initialize();
     EUSART1_Initialize();
+    EUSART2_Initialize();
     I2C1_Initialize();
+    TMR6_Initialize();
     INTERRUPT_Initialize();
 }
 

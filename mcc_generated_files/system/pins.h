@@ -144,6 +144,44 @@
 #define LED_SetOpenDrain()       do { ODCONDbits.ODCD1 = 1; } while(0)
 #define LED_SetAnalogMode()      do { ANSELDbits.ANSD1 = 1; } while(0)
 #define LED_SetDigitalMode()     do { ANSELDbits.ANSD1 = 0; } while(0)
+// get/set IO_RD6 aliases
+#define TX2_TRIS                 TRISDbits.TRISD6
+#define TX2_LAT                  LATDbits.LATD6
+#define TX2_PORT                 PORTDbits.RD6
+#define TX2_WPU                  WPUDbits.WPUD6
+#define TX2_OD                   ODCONDbits.ODCD6
+#define TX2_ANS                  ANSELDbits.ANSD6
+#define TX2_SetHigh()            do { LATDbits.LATD6 = 1; } while(0)
+#define TX2_SetLow()             do { LATDbits.LATD6 = 0; } while(0)
+#define TX2_Toggle()             do { LATDbits.LATD6 = ~LATDbits.LATD6; } while(0)
+#define TX2_GetValue()           PORTDbits.RD6
+#define TX2_SetDigitalInput()    do { TRISDbits.TRISD6 = 1; } while(0)
+#define TX2_SetDigitalOutput()   do { TRISDbits.TRISD6 = 0; } while(0)
+#define TX2_SetPullup()          do { WPUDbits.WPUD6 = 1; } while(0)
+#define TX2_ResetPullup()        do { WPUDbits.WPUD6 = 0; } while(0)
+#define TX2_SetPushPull()        do { ODCONDbits.ODCD6 = 0; } while(0)
+#define TX2_SetOpenDrain()       do { ODCONDbits.ODCD6 = 1; } while(0)
+#define TX2_SetAnalogMode()      do { ANSELDbits.ANSD6 = 1; } while(0)
+#define TX2_SetDigitalMode()     do { ANSELDbits.ANSD6 = 0; } while(0)
+// get/set IO_RD7 aliases
+#define RYLR_EN_TRIS                 TRISDbits.TRISD7
+#define RYLR_EN_LAT                  LATDbits.LATD7
+#define RYLR_EN_PORT                 PORTDbits.RD7
+#define RYLR_EN_WPU                  WPUDbits.WPUD7
+#define RYLR_EN_OD                   ODCONDbits.ODCD7
+#define RYLR_EN_ANS                  ANSELDbits.ANSD7
+#define RYLR_EN_SetHigh()            do { LATDbits.LATD7 = 1; } while(0)
+#define RYLR_EN_SetLow()             do { LATDbits.LATD7 = 0; } while(0)
+#define RYLR_EN_Toggle()             do { LATDbits.LATD7 = ~LATDbits.LATD7; } while(0)
+#define RYLR_EN_GetValue()           PORTDbits.RD7
+#define RYLR_EN_SetDigitalInput()    do { TRISDbits.TRISD7 = 1; } while(0)
+#define RYLR_EN_SetDigitalOutput()   do { TRISDbits.TRISD7 = 0; } while(0)
+#define RYLR_EN_SetPullup()          do { WPUDbits.WPUD7 = 1; } while(0)
+#define RYLR_EN_ResetPullup()        do { WPUDbits.WPUD7 = 0; } while(0)
+#define RYLR_EN_SetPushPull()        do { ODCONDbits.ODCD7 = 0; } while(0)
+#define RYLR_EN_SetOpenDrain()       do { ODCONDbits.ODCD7 = 1; } while(0)
+#define RYLR_EN_SetAnalogMode()      do { ANSELDbits.ANSD7 = 1; } while(0)
+#define RYLR_EN_SetDigitalMode()     do { ANSELDbits.ANSD7 = 0; } while(0)
 /**
  * @ingroup  pinsdriver
  * @brief GPIO and peripheral I/O initialization

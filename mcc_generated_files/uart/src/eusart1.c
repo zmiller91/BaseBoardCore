@@ -237,18 +237,6 @@ void EUSART1_Write(uint8_t txData)
     TX1REG = txData;
 }
 
-int getch(void)
-{
-    while(!(EUSART1_IsRxReady()));
-    return EUSART1_Read();
-}
-
-void putch(char txData)
-{
-    while(!(EUSART1_IsTxReady()));
-    return EUSART1_Write(txData);   
-}
-
 static void EUSART1_DefaultFramingErrorCallback(void)
 {
     

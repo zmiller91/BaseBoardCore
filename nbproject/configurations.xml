@@ -20,13 +20,21 @@
           <itemPath>mcc_generated_files/system/clock.h</itemPath>
           <itemPath>mcc_generated_files/system/pins.h</itemPath>
         </logicalFolder>
+        <logicalFolder name="timer" displayName="timer" projectFiles="true">
+          <itemPath>mcc_generated_files/timer/tmr6.h</itemPath>
+          <itemPath>mcc_generated_files/timer/timer_interface.h</itemPath>
+        </logicalFolder>
         <logicalFolder name="uart" displayName="uart" projectFiles="true">
           <itemPath>mcc_generated_files/uart/eusart1.h</itemPath>
           <itemPath>mcc_generated_files/uart/uart_drv_interface.h</itemPath>
           <itemPath>mcc_generated_files/uart/uart_types.h</itemPath>
+          <itemPath>mcc_generated_files/uart/eusart2.h</itemPath>
         </logicalFolder>
       </logicalFolder>
       <itemPath>run.h</itemPath>
+      <itemPath>log.h</itemPath>
+      <itemPath>rylr.h</itemPath>
+      <itemPath>timeout.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -52,13 +60,22 @@
             <itemPath>mcc_generated_files/system/src/clock.c</itemPath>
           </logicalFolder>
         </logicalFolder>
+        <logicalFolder name="timer" displayName="timer" projectFiles="true">
+          <logicalFolder name="src" displayName="src" projectFiles="true">
+            <itemPath>mcc_generated_files/timer/src/tmr6.c</itemPath>
+          </logicalFolder>
+        </logicalFolder>
         <logicalFolder name="uart" displayName="uart" projectFiles="true">
           <logicalFolder name="src" displayName="src" projectFiles="true">
             <itemPath>mcc_generated_files/uart/src/eusart1.c</itemPath>
+            <itemPath>mcc_generated_files/uart/src/eusart2.c</itemPath>
           </logicalFolder>
         </logicalFolder>
       </logicalFolder>
       <itemPath>run.c</itemPath>
+      <itemPath>log.c</itemPath>
+      <itemPath>timeout.c</itemPath>
+      <itemPath>lora.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -68,7 +85,7 @@
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
-    <Elem>mcc_generated_files</Elem>
+    <Elem>.</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
