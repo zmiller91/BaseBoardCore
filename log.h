@@ -8,6 +8,8 @@ typedef enum {
     LOG_LEVEL_NONE  = 3
 } LogLevel;
 
+void log_init(void);
+void log_disable(void);
 void log_debug(const char* message);
 void log_info(const char* message);
 void log_error(const char* message);

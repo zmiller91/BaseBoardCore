@@ -37,7 +37,7 @@
 void lora_init(void);
 int8_t lora_send(uint8_t address, double metrics[], uint8_t size);
 bool lora_enable(void);
-
+bool lora_disable(void);
 
 #endif	/* XC_HEADER_TEMPLATE_H */
 

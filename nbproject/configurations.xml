@@ -7,6 +7,12 @@
       <logicalFolder name="MCC Generated Files"
                      displayName="MCC Generated Files"
                      projectFiles="true">
+        <logicalFolder name="adcc" displayName="adcc" projectFiles="true">
+          <itemPath>mcc_generated_files/adcc/adcc.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="fvr" displayName="fvr" projectFiles="true">
+          <itemPath>mcc_generated_files/fvr/fvr.h</itemPath>
+        </logicalFolder>
         <logicalFolder name="i2c_host" displayName="i2c_host" projectFiles="true">
           <itemPath>mcc_generated_files/i2c_host/mssp1.h</itemPath>
           <itemPath>mcc_generated_files/i2c_host/i2c_host_event_types.h</itemPath>
@@ -23,6 +29,7 @@
         <logicalFolder name="timer" displayName="timer" projectFiles="true">
           <itemPath>mcc_generated_files/timer/tmr6.h</itemPath>
           <itemPath>mcc_generated_files/timer/timer_interface.h</itemPath>
+          <itemPath>mcc_generated_files/timer/tmr1.h</itemPath>
         </logicalFolder>
         <logicalFolder name="uart" displayName="uart" projectFiles="true">
           <itemPath>mcc_generated_files/uart/eusart1.h</itemPath>
@@ -35,6 +42,9 @@
       <itemPath>log.h</itemPath>
       <itemPath>timeout.h</itemPath>
       <itemPath>lora.h</itemPath>
+      <itemPath>uuid.h</itemPath>
+      <itemPath>i2c_manager.h</itemPath>
+      <itemPath>adcc_manager.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -46,6 +56,16 @@
       <logicalFolder name="MCC Generated Files"
                      displayName="MCC Generated Files"
                      projectFiles="true">
+        <logicalFolder name="adcc" displayName="adcc" projectFiles="true">
+          <logicalFolder name="src" displayName="src" projectFiles="true">
+            <itemPath>mcc_generated_files/adcc/src/adcc.c</itemPath>
+          </logicalFolder>
+        </logicalFolder>
+        <logicalFolder name="fvr" displayName="fvr" projectFiles="true">
+          <logicalFolder name="src" displayName="src" projectFiles="true">
+            <itemPath>mcc_generated_files/fvr/src/fvr.c</itemPath>
+          </logicalFolder>
+        </logicalFolder>
         <logicalFolder name="i2c_host" displayName="i2c_host" projectFiles="true">
           <logicalFolder name="src" displayName="src" projectFiles="true">
             <itemPath>mcc_generated_files/i2c_host/src/mssp1.c</itemPath>
@@ -63,6 +83,7 @@
         <logicalFolder name="timer" displayName="timer" projectFiles="true">
           <logicalFolder name="src" displayName="src" projectFiles="true">
             <itemPath>mcc_generated_files/timer/src/tmr6.c</itemPath>
+            <itemPath>mcc_generated_files/timer/src/tmr1.c</itemPath>
           </logicalFolder>
         </logicalFolder>
         <logicalFolder name="uart" displayName="uart" projectFiles="true">
@@ -76,6 +97,9 @@
       <itemPath>log.c</itemPath>
       <itemPath>timeout.c</itemPath>
       <itemPath>lora.c</itemPath>
+      <itemPath>uuid.c</itemPath>
+      <itemPath>i2c_manager.c</itemPath>
+      <itemPath>adcc_manager.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -83,8 +107,6 @@
       <itemPath>Makefile</itemPath>
       <itemPath>BaseBoardCore.mc3</itemPath>
     </logicalFolder>
-    <itemPath>uuid.c</itemPath>
-    <itemPath>uuid.h</itemPath>
   </logicalFolder>
   <sourceRootList>
     <Elem>.</Elem>

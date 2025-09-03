@@ -21,7 +21,6 @@ void lora_init(void) {
     EUSART1_Enable();
     EUSART1_TransmitEnable();
     EUSART1_ReceiveEnable();
-    timeout_init();
 }
 
 void eusart1_rx_clear(void) {
@@ -114,6 +113,15 @@ int8_t uart_read(void) {
     
     // TODO: return more appropriate error code
     return LORA_UNLISTED_FAILURE;
+}
+
+bool lora_disable(void) {
+    log_debug("Disabling RYLR");
+    RYLR_EN_SetLow();
+    EUSART1_Disable();
+    EUSART1_TransmitDisable();
+    EUSART1_ReceiveDisable();
+    return true;
 }
 
 bool lora_enable(void) {

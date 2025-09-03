@@ -9,7 +9,13 @@
 static volatile uint8_t overflow_count = 0;
 
 void timeout_init() {
+    T6CONbits.TMR6ON = 1;     // Enable Timer6
+    timeout_reset();
     TMR6_OverflowCallbackRegister(timer_increment);
+}
+
+void timeout_disable(void) {
+    T6CONbits.TMR6ON = 0;     // Disable Timer6
 }
 
 bool timeout_wait(bool (*StatusHandler)(void)) {

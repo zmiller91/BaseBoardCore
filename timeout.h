@@ -21,4 +21,6 @@ void timer_increment(void);
 
 bool timeout_wait(bool (* StatusHandler)(void));
 
+void timeout_disable(void);
+
 #endif	/* XC_TIMEOUT_H */
