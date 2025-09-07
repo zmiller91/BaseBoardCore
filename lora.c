@@ -45,6 +45,7 @@ int8_t uart_write(char *data) {
     bool carriage_found = false;
     bool newline_found = false;
     
+    log_debug(data);
     for(uint8_t i = 0; i < strlen(data); i++) {
         
         char c = data[i];
@@ -117,7 +118,7 @@ int8_t uart_read(void) {
 
 bool lora_disable(void) {
     log_debug("Disabling RYLR");
-    RYLR_EN_SetLow();
+    LORA_EN_SetLow();
     EUSART1_Disable();
     EUSART1_TransmitDisable();
     EUSART1_ReceiveDisable();
@@ -127,7 +128,7 @@ bool lora_disable(void) {
 bool lora_enable(void) {
     
     log_debug("Enabling RYLR");
-    RYLR_EN_SetHigh();
+    LORA_EN_SetHigh();
     log_debug("RYLR_EN high");
     
     __delay_ms(2000);
@@ -166,7 +167,6 @@ int8_t lora_send(uint8_t address, double metrics[], uint8_t size) {
     char buffer[60] = {0};
     sprintf(buffer, "AT+SEND=%i,%i,%s%s\r\n", address, payload_size, uuid_get(), metricResult);
     
-    log_debug(buffer);
     int8_t response_code = uart_write(buffer);
     if(response_code < 0) {
         return response_code;

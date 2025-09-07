@@ -225,7 +225,10 @@ typedef enum
     channel_Temp =  0x3b,
     channel_FVR_buf1 =  0x3e,
     channel_FVR_buf2 =  0x3f,
-    channel_ANC5 =  0x15
+    AIN_BAT =  0x4,
+    AIN1 =  0x1c,
+    AIN2 =  0x1d,
+    AIN3 =  0x1e
 } adcc_channel_t;
 
 /**

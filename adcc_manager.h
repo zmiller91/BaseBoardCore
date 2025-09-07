@@ -12,7 +12,10 @@
 #include "mcc_generated_files/adcc/adcc.h"
 
 typedef enum {
-    ANC5 = channel_ANC5
+    ADCC_1 = AIN1,
+    ADCC_2 = AIN2,
+    ADCC_3 = AIN3,
+    ADCC_BAT = AIN_BAT
 } adcc_channel;
 
 

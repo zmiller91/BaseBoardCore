@@ -49,20 +49,20 @@ void PIN_MANAGER_Initialize(void)
     /**
     TRISx registers
     */
-    TRISA = 0xFF;
-    TRISB = 0xFD;
-    TRISC = 0xBF;
-    TRISD = 0x3C;
-    TRISE = 0xF;
+    TRISA = 0xF7;
+    TRISB = 0xE6;
+    TRISC = 0x8E;
+    TRISD = 0xFF;
+    TRISE = 0xE;
 
     /**
     ANSELx registers
     */
-    ANSELA = 0xFF;
-    ANSELB = 0xFC;
-    ANSELC = 0xB3;
-    ANSELD = 0x7C;
-    ANSELE = 0x7;
+    ANSELA = 0xF7;
+    ANSELB = 0xD4;
+    ANSELC = 0x82;
+    ANSELD = 0xFF;
+    ANSELE = 0x6;
 
     /**
     WPUx registers
@@ -102,13 +102,14 @@ void PIN_MANAGER_Initialize(void)
     /**
     PPS registers
     */
-    RX1PPS = 0x8; //RB0->EUSART1:RX1;
-    RD6PPS = 0x11;  //RD6->EUSART2:TX2;
-    RB1PPS = 0x0E;  //RB1->EUSART1:TX1;
-    SSP1CLKPPS = 0x12;  //RC2->MSSP1:SCL1;
-    RC2PPS = 0x15;  //RC2->MSSP1:SCL1;
-    SSP1DATPPS = 0x13;  //RC3->MSSP1:SDA1;
-    RC3PPS = 0x16;  //RC3->MSSP1:SDA1;
+    RX2PPS = 0xD; //RB5->EUSART2:RX2;
+    RX1PPS = 0x9; //RB1->EUSART1:RX1;
+    RB4PPS = 0x11;  //RB4->EUSART2:TX2;
+    RB0PPS = 0x0E;  //RB0->EUSART1:TX1;
+    SSP1CLKPPS = 0x13;  //RC3->MSSP1:SCL1;
+    RC3PPS = 0x15;  //RC3->MSSP1:SCL1;
+    SSP1DATPPS = 0x12;  //RC2->MSSP1:SDA1;
+    RC2PPS = 0x16;  //RC2->MSSP1:SDA1;
 
     /**
     APFCON registers

@@ -74,8 +74,8 @@ void ADCC_Initialize(void)
     ADACQL = 0x1;
     //ADACQH 0; 
     ADACQH = 0x0;
-    //CHS ANC5; 
-    ADPCH = 0x15;
+    //CHS AND4; 
+    ADPCH = 0x1C;
     //ADRPT 0; 
     ADRPT = 0x0;
     //ADLTHL 0; 
