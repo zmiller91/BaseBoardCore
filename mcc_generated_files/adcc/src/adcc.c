@@ -60,8 +60,8 @@ void ADCC_Initialize(void)
     ADACCL = 0x0;
     //ADMATH registers not updated; 
     ADSTAT = 0x0;
-    //ADCCS FOSC/4; 
-    ADCLK = 0x1;
+    //ADCCS FOSC/8; 
+    ADCLK = 0x3;
     //ADPREF VDD; 
     ADREF = 0x0;
     //ADCAP Additional uC disabled; 

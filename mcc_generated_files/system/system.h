@@ -43,7 +43,6 @@
 #include "../adcc/adcc.h"
 #include "../uart/eusart1.h"
 #include "../uart/eusart2.h"
-#include "../fvr/fvr.h"
 #include "../i2c_host/mssp1.h"
 #include "../timer/tmr1.h"
 #include "../timer/tmr6.h"

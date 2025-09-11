@@ -9,15 +9,22 @@
 #include "adcc_manager.h"
 #include "i2c_manager.h"
 
+
+sleep_period sleep_period_count = FIFTEEN_MINUTES;
+
+void set_sleep_period(sleep_period period) {
+    sleep_period_count = period;
+}
+
 void low_power_mode(void){
 
     // Timer1 overflows every 15 seconds. Run 120 overflow cycles to sleep for
     // a total of 30 minutes
     TMR1_Start();
-    uint16_t overflowCount = 0;
-    while (overflowCount < 1) {
+    uint16_t overflow_count = 0;
+    while (overflow_count < (uint16_t) sleep_period_count) {
         SLEEP();  
-        overflowCount++;
+        overflow_count++;
     }
 
     TMR1_Stop();

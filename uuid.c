@@ -16,6 +16,13 @@ void uuid_init(void) {
     uint8_t uuid[6];
     uint8_t start_addr = EEPROM_START_ADDRESS;
 
+    // The I2C outputs need to be powered up. Not doing so may (will?) put the
+    // I2C bus in a bad state. This may not be necessary if we move to a high-side
+    // P channel mosfet.
+    uint8_t original_i2c_state = I2C_EN_LAT;
+    I2C_EN_SetHigh();
+    
+    
     // Send memory address, then read one byte
     i2c_mgr_write_read(
         EEPROM_I2C_ADDRESS,       // 7-bit I2C address
@@ -27,6 +34,7 @@ void uuid_init(void) {
     
     char payload[9];  // 4 bytes * 2 chars + null terminator
     sprintf(g_uuid, "%02X%02X%02X%02X", uuid[2], uuid[3], uuid[4], uuid[5]);
+    I2C_EN_LAT = original_i2c_state;
 }
 
 const char* uuid_get(void) {

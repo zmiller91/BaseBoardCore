@@ -41,7 +41,6 @@ void SYSTEM_Initialize(void)
     ADCC_Initialize();
     EUSART1_Initialize();
     EUSART2_Initialize();
-    FVR_Initialize();
     I2C1_Initialize();
     Timer1_Initialize();
     TMR6_Initialize();
