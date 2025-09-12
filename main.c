@@ -36,28 +36,24 @@
     Main application
 */
 
-int main(void)
-{
-    SYSTEM_Initialize();
+#include "run.h"
+#include "log.h"
+#include "lora.h"
+#include <stdio.h>
+#include "mcc_generated_files/system/config_bits.h"
 
-    // If using interrupts in PIC18 High/Low Priority Mode you need to enable the Global High and Low Interrupts 
-    // If using interrupts in PIC Mid-Range Compatibility Mode you need to enable the Global and Peripheral Interrupts 
-    // Use the following macros to: 
+void task(void) {
+    LED_EN_SetHigh();
+    log_debug("Hello from the application!");
+    lora_enable();
+    
+    double data[] = {123.456};
+    lora_send(32, data, 1);
+    
+    LED_EN_SetLow();
+    set_sleep_period(FIFTEEN_SECONDS);
+}
 
-    // Enable the Global Interrupts 
-    //INTERRUPT_GlobalInterruptEnable(); 
-
-    // Disable the Global Interrupts 
-    //INTERRUPT_GlobalInterruptDisable(); 
-
-    // Enable the Peripheral Interrupts 
-    //INTERRUPT_PeripheralInterruptEnable(); 
-
-    // Disable the Peripheral Interrupts 
-    //INTERRUPT_PeripheralInterruptDisable(); 
-
-
-    while(1)
-    {
-    }    
+int main(void) {
+    return run(task);   
 }

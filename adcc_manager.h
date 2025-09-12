@@ -22,7 +22,6 @@ typedef enum {
 void adcc_mgr_init(void);
 void adcc_mgr_disable(void);
 adc_result_t adcc_mgr_get_raw_conversion(adcc_channel channel);
-float adcc_mgr_get_voltage_conversion(adcc_channel channel);
 
 #endif	/* ADCC_MANAGER_H */
 

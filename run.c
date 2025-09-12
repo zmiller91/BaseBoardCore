@@ -1,6 +1,4 @@
 #include "mcc_generated_files/system/system.h"
-#include <stdio.h>
-#include <string.h>
 #include "run.h"
 #include "log.h"
 #include "lora.h"
@@ -8,6 +6,7 @@
 #include "timeout.h"
 #include "adcc_manager.h"
 #include "i2c_manager.h"
+#include "string_utils.h"
 
 
 sleep_period sleep_period_count = FIFTEEN_MINUTES;
@@ -48,8 +47,15 @@ void deinit(void) {
 }
 
 void log_device_id(void) {
+    
     char buf[32]; 
-    sprintf(buf, "Device ID: %s", uuid_get());
+    char label[] = "Device ID: ";
+    char *uuid = uuid_get();
+    char *parts[] = { label, uuid};
+    
+    join_buffers(parts, 2, buf, 32);
+    
+    
     log_debug(buf);
 }
 

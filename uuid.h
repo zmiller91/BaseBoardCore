@@ -10,7 +10,7 @@
 
 extern char g_uuid[9]; // 4 bytes, 2 char each, plus null terminator
 void uuid_init(void);
-const char* uuid_get(void);
+char* uuid_get(void);
 
 #endif	/* UUID_H */
 

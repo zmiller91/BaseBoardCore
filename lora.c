@@ -2,7 +2,6 @@
 #include <stdbool.h>
 #include <string.h>
 #include <math.h>
-#include <stdio.h>
 
 #include <xc.h>
 #include "mcc_generated_files/system/system.h"
@@ -11,6 +10,7 @@
 #include "timeout.h"
 #include "log.h"
 #include "uuid.h"
+#include "string_utils.h"
 
 void lora_init(void) {
     
@@ -147,30 +147,72 @@ bool lora_enable(void) {
     return true;
 }
 
-int8_t lora_send(uint8_t address, double metrics[], uint8_t size) {
+uint8_t payload_size(char *parts[], uint8_t part_size) {
     
-    char metricResult[60] = {0};
-    for(uint8_t idx = 0; idx < size; idx++) {
-        
-        // There shouldn't be more than 10 characters in the metric, including
-        // decimals and negative signs.
-        char data[10];
-        sprintf(data, "%.2f", metrics[idx]);
-        
-        strcat(metricResult, "::");
-        strcat(metricResult, data);
-    }
-       
-    // Calculate the payload size, since any null values won't be written
-    // to the final buffer.
-    int payload_size = snprintf(NULL, 0, "%s%s", uuid_get(), metricResult);
-    char buffer[60] = {0};
-    sprintf(buffer, "AT+SEND=%i,%i,%s%s\r\n", address, payload_size, uuid_get(), metricResult);
+    uint8_t count = 0;
+    for (uint8_t i = 0; i < part_size; i++) {
     
-    int8_t response_code = uart_write(buffer);
-    if(response_code < 0) {
-        return response_code;
+        uint8_t j = 0;
+        while(parts[i][j] != '\0') {
+            count++;
+            j++;
+        }
     }
     
+    return count;
+}
+
+static bool append_str(char *dst, uint8_t *len, uint8_t cap, const char *src) {
+    while (*src) {
+        if (*len + 1 >= cap) {      // keep room for '\0'
+            dst[*len] = '\0';
+            return false;
+        }
+        dst[(*len)++] = *src++;
+    }
+    dst[*len] = '\0';
+    return true;
+}
+
+int8_t lora_send(uint8_t address, int32_t metrics[], uint8_t size) {
+    // 1) Build payload: "<UUID>::<m0>::<m1>..."
+    char payload[50];
+    uint8_t payload_len = 0;
+
+    char *id = uuid_get();
+    if (!append_str(payload, &payload_len, sizeof payload, id))
+        return -1;
+
+    for (uint8_t i = 0; i < size; i++) {
+        if (!append_str(payload, &payload_len, sizeof payload, "::"))
+            return -1;
+
+        char num[12];                            // int32: up to 11 chars incl. sign + NUL
+        int32_to_str(num, sizeof num, metrics[i]);
+        if (!append_str(payload, &payload_len, sizeof payload, num))
+            return -1;
+    }
+
+    // 2) Convert length and address
+    char len_str[6];                             // plenty for <50: "49\0"
+    uint16_to_str(len_str, sizeof len_str, (uint16_t)payload_len);
+
+    char addr_str[4];                            // 0..255 -> up to "255\0"
+    uint16_to_str(addr_str, sizeof addr_str, address);
+
+    // 3) Build full command: "AT+SEND=<addr>,<len>,<payload>\r\n"
+    char cmd[64];
+    uint8_t cmd_len = 0;
+
+    if (!append_str(cmd, &cmd_len, sizeof cmd, "AT+SEND=")) return -1;
+    if (!append_str(cmd, &cmd_len, sizeof cmd, addr_str))   return -1;
+    if (!append_str(cmd, &cmd_len, sizeof cmd, ","))        return -1;
+    if (!append_str(cmd, &cmd_len, sizeof cmd, len_str))    return -1;
+    if (!append_str(cmd, &cmd_len, sizeof cmd, ","))        return -1;
+    if (!append_str(cmd, &cmd_len, sizeof cmd, payload))    return -1;
+    if (!append_str(cmd, &cmd_len, sizeof cmd, "\r\n"))     return -1;
+
+    int8_t rc = uart_write(cmd);
+    if (rc < 0) return rc;
     return uart_read();
 }

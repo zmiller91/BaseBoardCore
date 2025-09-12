@@ -1,8 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
 
 #include "uuid.h"
 #include "i2c_manager.h"
+#include "string_utils.h"
 
 #define EEPROM_I2C_ADDRESS      0x50    // 7-bit address of 24AA02UID
 #define EEPROM_START_ADDRESS    0xFA    // starting memory address to read from
@@ -32,11 +31,22 @@ void uuid_init(void) {
         EEPROM_BYTES              // number of bytes to read
     );
     
-    char payload[9];  // 4 bytes * 2 chars + null terminator
-    sprintf(g_uuid, "%02X%02X%02X%02X", uuid[2], uuid[3], uuid[4], uuid[5]);
+    char p1[3];
+    char p2[3];
+    char p3[3];
+    char p4[3];
+    
+    byte_to_hex2(uuid[2], p1);
+    byte_to_hex2(uuid[3], p2);
+    byte_to_hex2(uuid[4], p3);      
+    byte_to_hex2(uuid[5], p4);
+    
+    char *parts[] = {p1, p2, p3, p4};
+    join_buffers(parts, 4, g_uuid, 9);
+    
     I2C_EN_LAT = original_i2c_state;
 }
 
-const char* uuid_get(void) {
+char* uuid_get(void) {
     return g_uuid;
 }
