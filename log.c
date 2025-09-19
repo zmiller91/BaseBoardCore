@@ -10,11 +10,11 @@
 static LogLevel current_log_level = LOG_LEVEL_DEBUG;
 
 
-bool tx2_busy(void) {
+static inline bool tx2_busy(void) {
     return !EUSART2_IsTxDone();
 }
 
-bool uart2_write(char *data) {
+static inline bool uart2_write(char *data) {
     
     for(uint8_t i = 0; i < strlen(data); i++) {
         EUSART2_Write(data[i]);
@@ -27,20 +27,14 @@ bool uart2_write(char *data) {
 }
 
 
-void format_log_level(const char* log_level, char buffer[9]) {
-    size_t n = strlen(log_level);
-    for(uint8_t i = 0; i < n; i++) {
-        buffer[i] = log_level[i];
-    }
-    
-    for(size_t i = n; i < 8; i++) {
-        buffer[i] = ' ';
-    }
-    
-    buffer[9] = '\0';
+static inline void format_log_level(const char* log_level, char buffer[9]) {
+    // pad with spaces, copy up to 8, and NUL-terminate
+    for (int i = 0; i < 8; i++) buffer[i] = ' ';
+    for (int i = 0; i < 8 && log_level[i]; i++) buffer[i] = log_level[i];
+    buffer[8] = '\0';
 }
 
-bool has_cr_or_lf(const char *text) {
+static inline bool has_cr_or_lf(const char *text) {
     while (*text) {
         char ch = *text++;
         if (ch == '\r' || ch == '\n') {
@@ -69,7 +63,7 @@ void log(LogLevel level, const char* level_name, const char* message) {
 }
 
 void log_debug(const char* message) {
-    log(LOG_LEVEL_DEBUG, "DEBUG", message);
+//    log(LOG_LEVEL_DEBUG, "DEBUG", message);
 }
 
 void log_info(const char* message) {

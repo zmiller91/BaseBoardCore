@@ -36,6 +36,7 @@
 #define PINS_H
 
 #include <xc.h>
+#include <stdbool.h>
 
 #define INPUT   1
 #define OUTPUT  0
@@ -372,6 +373,9 @@
 #define LED_EN_SetOpenDrain()       do { ODCONEbits.ODCE0 = 1; } while(0)
 #define LED_EN_SetAnalogMode()      do { ANSELEbits.ANSE0 = 1; } while(0)
 #define LED_EN_SetDigitalMode()     do { ANSELEbits.ANSE0 = 0; } while(0)
+
+extern volatile bool EXTERNAL_WAKEUP;  
+
 /**
  * @ingroup  pinsdriver
  * @brief GPIO and peripheral I/O initialization

@@ -45,7 +45,7 @@ int8_t uart_write(char *data) {
     bool carriage_found = false;
     bool newline_found = false;
     
-    log_debug(data);
+    log_info(data);
     for(uint8_t i = 0; i < strlen(data); i++) {
         
         char c = data[i];

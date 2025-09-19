@@ -34,6 +34,7 @@
 
 #include "../pins.h"
 
+volatile bool EXTERNAL_WAKEUP = false;
 
 void PIN_MANAGER_Initialize(void)
 {
@@ -136,6 +137,29 @@ void PIN_MANAGER_Initialize(void)
   
 void PIN_MANAGER_IOC(void)
 {
+    // This method handles the interrupt on change event when a pin changes 
+    // state. As written, it handles all state changes the same and won't 
+    // differentiate between pins. If you want to know which pin is toggled
+    // you will have to add that logic here -- either calling a delegate method
+    // or exposing a variable. 
+    
+    // Flag to indicate that the IOC triggered
+    EXTERNAL_WAKEUP = true;
+
+    // Read all the flag registers so the PIC recognizes the state change
+    uint8_t port_a_flags = IOCAF;
+    uint8_t port_b_flags = IOCBF;
+    uint8_t port_c_flags = IOCCF;
+    uint8_t port_e_flags = IOCEF;
+
+    // Clear all the ports flags
+    if (port_a_flags) { (void)PORTA; IOCAF = 0; }
+    if (port_b_flags) { (void)PORTB; IOCBF = 0; }
+    if (port_c_flags) { (void)PORTC; IOCCF = 0; }
+    if (port_e_flags) { (void)PORTE; IOCEF = 0; }
+    
+    // Clear the master flag
+    PIR0bits.IOCIF   = 0;
 }
 /**
  End of File

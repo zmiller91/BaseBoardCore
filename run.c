@@ -7,6 +7,7 @@
 #include "adcc_manager.h"
 #include "i2c_manager.h"
 #include "string_utils.h"
+#include <stdbool.h>
 
 
 sleep_period sleep_period_count = FIFTEEN_MINUTES;
@@ -16,13 +17,19 @@ void set_sleep_period(sleep_period period) {
 }
 
 void low_power_mode(void){
-
+    
+    // Reset the external wakup flag to false
+    EXTERNAL_WAKEUP = false;
+    
     // Timer1 overflows every 15 seconds. Run 120 overflow cycles to sleep for
     // a total of 30 minutes
     TMR1_Start();
     uint16_t overflow_count = 0;
     while (overflow_count < (uint16_t) sleep_period_count) {
         SLEEP();  
+        if(EXTERNAL_WAKEUP) {
+            return;
+        }
         overflow_count++;
     }
 
@@ -56,7 +63,7 @@ void log_device_id(void) {
     join_buffers(parts, 2, buf, 32);
     
     
-    log_debug(buf);
+    log_info(buf);
 }
 
 int run(AppTaskFn task) {
