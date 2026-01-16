@@ -7,8 +7,7 @@
 #define EEPROM_START_ADDRESS    0xFA    // starting memory address to read from
 #define EEPROM_BYTES            6       // number of bytes to read
 
-
-char g_uuid[9] = {0};
+char g_uuid[UUID_SIZE + 1] = {0};
 
 void uuid_init(void) {
     
@@ -42,7 +41,7 @@ void uuid_init(void) {
     byte_to_hex2(uuid[5], p4);
     
     char *parts[] = {p1, p2, p3, p4};
-    join_buffers(parts, 4, g_uuid, 9);
+    join_buffers(parts, 4, g_uuid, UUID_SIZE + 1);
     
     I2C_EN_LAT = original_i2c_state;
 }

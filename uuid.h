@@ -8,6 +8,9 @@
 #ifndef UUID_H
 #define	UUID_H 
 
+
+#define UUID_SIZE               8
+
 extern char g_uuid[9]; // 4 bytes, 2 char each, plus null terminator
 void uuid_init(void);
 char* uuid_get(void);

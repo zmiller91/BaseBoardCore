@@ -23,4 +23,6 @@ bool timeout_wait(bool (* StatusHandler)(void));
 
 void timeout_disable(void);
 
+uint16_t timeout_period_ms(void);
+
 #endif	/* XC_TIMEOUT_H */

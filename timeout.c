@@ -3,10 +3,14 @@
 #include "mcc_generated_files/timer/tmr6.h"
 #include "mcc_generated_files/system/pins.h"
 
-// Timer overflows every 50 milliseconds; 40 overflows = 2 seconds.
+// Timer overflows every 50 milliseconds; 90 overflows = 4.5 seconds.
 #define MAX_OVERFLOWS 90
 
 static volatile uint8_t overflow_count = 0;
+
+uint16_t timeout_period_ms() {
+    return MAX_OVERFLOWS * 50;
+}
 
 void timeout_init() {
     T6CONbits.TMR6ON = 1;     // Enable Timer6

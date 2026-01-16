@@ -14,6 +14,9 @@
 
 
 #define RYLR998_OK                                      INT8_C(1)
+#define DATA_RECEIVED                                   INT8_C(101)
+#define NO_DATA                                         INT8_C(102)
+
 
 /*! @name RYLR998 Error Codes */
 #define RYLR998_NO_ENTER                                INT8_C(-1)
@@ -33,10 +36,28 @@
 #define LORA_INVALID_DATA                            INT8_C(-97)
 #define LORA_TIMEOUT                                 INT8_C(-98)
 #define LORA_UNLISTED_FAILURE                        INT8_C(-99)
+#define PAYLOAD_TOO_BIG                              INT8_C(-100)
+#define LORA_PARSE_ERROR                             INT8_C(-101)
+
+
+#define LORA_MAX_MSGID     16
+#define MAX_PAYLOAD_SIZE   25
+
+typedef struct {
+    char msg_id[LORA_MAX_MSGID + 1];           // "a34ac35k"
+    const char* payload;
+} LoraRcv;
+
 
 void lora_init(void);
 
+int8_t send_rx_open(uint8_t address, uint16_t duration);
 int8_t lora_send(uint8_t address, int32_t metrics[], uint8_t size);
+int8_t lora_send_raw(uint8_t address, char* data);
+int8_t lora_receive(char* line_buf, uint8_t line_len, LoraRcv* out);
+int8_t send_ack(uint8_t address, const char *message_id);
+int8_t send_command_complete(uint8_t address, const char *message_id);
+
 bool lora_enable(void);
 bool lora_disable(void);
 

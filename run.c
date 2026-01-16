@@ -11,7 +11,6 @@
 
 
 sleep_period sleep_period_count = FIFTEEN_MINUTES;
-
 void set_sleep_period(sleep_period period) {
     sleep_period_count = period;
 }

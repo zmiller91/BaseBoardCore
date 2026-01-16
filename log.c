@@ -52,26 +52,34 @@ void log(LogLevel level, const char* level_name, const char* message) {
     bool has_crlf = (n >= 2 && message[n-2] == '\r' && message[n-1] == '\n');
     char* format = has_crlf ? "%-8s %s" : "%-8s %s\r\n";
     
-    char buffer[50];
+    char buffer[60];
     char log_level[9];
     format_log_level(level_name, log_level);
     char *parts[] = {log_level, message, has_cr_or_lf(message) ? "" : "\r\n"};
-    join_buffers(parts, 3, buffer, 50);
+    join_buffers(parts, 3, buffer, 60);
     uart2_write(buffer);
     
     
 }
 
 void log_debug(const char* message) {
-//    log(LOG_LEVEL_DEBUG, "DEBUG", message);
+    #if ENABLE_DEBUG
+        log(LOG_LEVEL_DEBUG, "DEBUG", message);
+    #endif
 }
 
 void log_info(const char* message) {
-    log(LOG_LEVEL_INFO, "INFO", message);
+    #if ENABLE_INFO
+        log(LOG_LEVEL_INFO, "INFO", message);
+    #endif
+    
 }
 
 void log_error(const char* message) {
-    log(LOG_LEVEL_ERROR, "ERROR", message);
+    #if ENABLE_ERROR
+        log(LOG_LEVEL_ERROR, "ERROR", message);
+    #endif
+    
 }
 
 void set_log_level(LogLevel level) {

@@ -1,6 +1,22 @@
 #ifndef LOG_H
 #define LOG_H
 
+#ifdef LOG_CONFIG_HEADER
+  #include LOG_CONFIG_HEADER
+#endif
+
+#ifndef ENABLE_DEBUG
+  #define ENABLE_DEBUG 1
+#endif
+
+#ifndef ENABLE_INFO
+  #define ENABLE_INFO 1
+#endif
+
+#ifndef ENABLE_ERROR
+  #define ENABLE_ERROR 1
+#endif
+
 typedef enum {
     LOG_LEVEL_DEBUG = 0,
     LOG_LEVEL_INFO  = 1,
